@@ -107,7 +107,7 @@ struct book *initialize_lib(struct book *start){
     ptr=new_book5;
     ptr->prev=new_book4;
     
-	new_book6=(struct book*)malloc(sizeof(struct book));
+    new_book6=(struct book*)malloc(sizeof(struct book));
     new_book6->prev=NULL;
     new_book6->next=NULL;
     strcpy(new_book6->name,"The Hobbit");
@@ -117,7 +117,7 @@ struct book *initialize_lib(struct book *start){
     ptr=new_book6;
     ptr->prev=new_book5;
     
-	new_book7=(struct book*)malloc(sizeof(struct book));
+    new_book7=(struct book*)malloc(sizeof(struct book));
     new_book7->prev=NULL;
     new_book7->next=NULL;
     strcpy(new_book7->name,"The Dream of The Red Chamber");
@@ -127,7 +127,7 @@ struct book *initialize_lib(struct book *start){
     ptr=new_book7;
     ptr->prev=new_book6;
 
-	new_book8=(struct book*)malloc(sizeof(struct book));
+    new_book8=(struct book*)malloc(sizeof(struct book));
     new_book8->prev=NULL;
     new_book8->next=NULL;
     strcpy(new_book8->name,"Fifty Shades of Grey");
@@ -147,7 +147,7 @@ struct book *initialize_lib(struct book *start){
     ptr=new_book9;
     ptr->prev=new_book8;
     
-	new_book10=(struct book*)malloc(sizeof(struct book));
+    new_book10=(struct book*)malloc(sizeof(struct book));
     new_book10->prev=NULL;
     new_book10->next=NULL;
     strcpy(new_book10->name,"Twilight");
@@ -230,7 +230,7 @@ struct student *book_return(struct student *start){
             start=start->next;
             start->prev=NULL;
             free(ptr);
-            //k
+            add_book(bookname,authorname,id);
         }else{
             ptr=start;
             while(ptr->id!=identity){
@@ -250,7 +250,7 @@ struct student *book_return(struct student *start){
             preptr->next=ptr->next;
             postptr->prev=preptr;
             free(ptr);
-            //k
+            add_book(bookname,authorname,id);
         }
         printf("\n\t\t Thank you!\t Do visit again! 🙂");
         printf("\n\n\t Press any key to go to the main menu: ");
