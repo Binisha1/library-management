@@ -28,14 +28,15 @@ struct student *book_issue(struct student *);
 struct student *book_return(struct student *);
 void greetings();
 void main_menu();
+void display(struct student *);
 struct book *delete_book(int);
 struct book *add_book(char [],char [],int);
 
 
 int main(){
     start_lib=initialize_lib(start_lib);
-//    greetings();
-//    main_menu();
+    greetings();
+    main_menu();
     return 0;
 }
 
@@ -66,6 +67,7 @@ void greetings(){
     printf("\n\n\t\t\t\t           Press any key to continue: ");
     getch();
 }
+
 void main_menu(){
     int choice;
     system("cls");
@@ -84,6 +86,15 @@ void main_menu(){
             case 1:{
                 start=book_issue(start);
                 break;
+        	}
+             case 2:{
+                start=book_return(start);
+                break;
+            }
+            case 3:{
+                display(start);
+                break;
+            }
             case 4:{
                 exit(1);
             }
@@ -95,7 +106,6 @@ void main_menu(){
         }
     }while(choice!=4);
 }
-
 
 struct book *initialize_lib(struct book *start){
     struct book *ptr,*new_book1,*new_book2,*new_book3,*new_book4,*new_book5,*new_book6,*new_book7,*new_book8,*new_book9,
@@ -201,6 +211,7 @@ struct book *initialize_lib(struct book *start){
     
     return start_lib;
 }
+
 struct student *book_issue(struct student *start){
     struct book *bptr;
     struct student *ptr2,*new_student;
@@ -277,6 +288,26 @@ struct student *book_issue(struct student *start){
     }
     return start;
 }
+
+void display(struct student *start){
+    struct student *ptr;
+    ptr=start;
+    while(ptr!=NULL){
+        printf("\n\t\t************* Details of Students: **************\n");
+        printf("\n\t\t_________________________________________________\n");
+        printf("\n\t\t\t Student Name: %s",ptr->name);
+        printf("\n\t\t\t Student Email: %s",ptr->email);
+        printf("\n\t\t\t Name of Book Issued: %s",ptr->book);
+        printf("\n\t\t\t Book ID: %d",ptr->id);
+        printf("\n\t\t_________________________________________________\n");
+        printf("\n\n\t\t*************************************************\n");
+        ptr=ptr->next;
+    }
+    printf("\n\n\t\t Press any key to go to the main menu: ");
+    getch();
+    system("cls");
+}
+
 struct book *delete_book(int id){
     struct book *ptr,*preptr,*postptr;
     int c=0;
