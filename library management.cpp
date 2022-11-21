@@ -13,6 +13,9 @@ struct book{
 
 struct book *start_lib=NULL;
 struct book *initialize_lib(struct book *);
+struct book *delete_book(int);
+struct book *add_book(char [],char [],int);
+
 
 int main(){
     start_lib=initialize_lib(start_lib);
@@ -123,5 +126,56 @@ struct book *initialize_lib(struct book *start){
     ptr=new_book10;
     ptr->prev=new_book9;
     
+    return start_lib;
+}
+struct book *delete_book(int id){
+    struct book *ptr,*preptr,*postptr;
+    int c=0;
+    ptr=start_lib;
+    while(ptr!=NULL){
+        c++;
+        ptr=ptr->next;
+    }
+    if(c==1){
+        ptr=start_lib;
+        start_lib=NULL;
+        free(ptr);
+    }else if(start_lib->id==id){
+        ptr=start_lib;
+        start_lib=start_lib->next;
+        free(ptr);
+    }else{
+        ptr=start_lib;
+        while(ptr->id!=id){
+            preptr=ptr;
+            ptr=ptr->next;
+        }
+        postptr=ptr->next;
+        postptr->prev=preptr;
+        preptr->next=postptr;
+        free(ptr);
+    }
+    return start_lib;
+}
+
+struct book *add_book(char bookname[30],char authorname[30],int id){
+    struct book *ptr,*new_book;
+    new_book=(struct book *)malloc(sizeof(struct book));
+    strcpy(new_book->name,bookname);
+    strcpy(new_book->author,authorname);
+    new_book->id=id;
+    new_book->prev=NULL;
+    new_book->next=NULL;
+    if(start_lib==NULL){
+        start_lib=new_book;
+    }else{
+        ptr=start_lib;
+        while(ptr->next!=NULL){
+            ptr=ptr->next;
+        }
+        ptr->next=new_book;
+        new_book->prev=ptr;
+        new_book->next=NULL;
+    }
     return start_lib;
 }
