@@ -13,6 +13,8 @@ struct book{
 
 struct book *start_lib=NULL;
 struct book *initialize_lib(struct book *);
+struct student *book_return(struct student *);
+void greetings();
 struct book *delete_book(int);
 struct book *add_book(char [],char [],int);
 
@@ -23,6 +25,35 @@ int main(){
 //    main_menu();
     return 0;
 }
+
+void greetings(){
+    printf("\n\n");
+    printf("\t\t\t\t     ****************************************\n");
+    printf("\t\t\t\t     *                                      *\n");
+    printf("\t\t\t\t     *     ____________________________   *\n");
+    printf("\t\t\t\t     *     ----------------------------     *\n");
+    printf("\t\t\t\t     *      WELCOME TO STUDENT LIBRARY      *\n");
+    printf("\t\t\t\t     *     ----------------------------     *\n");
+    printf("\t\t\t\t     *     ____________________________   *\n");
+    printf("\t\t\t\t     *                                      *\n");
+    printf("\t\t\t\t     ****************************************\n");
+    printf("\n\n");
+    printf("\t\t\t\t     ****************************************\n");
+    printf("\t\t\t\t     *                                      *\n");
+    printf("\t\t\t\t     *       ------------------------       *\n");
+    printf("\t\t\t\t     *       |  STUDENT LIBRARY     |       *\n");
+    printf("\t\t\t\t     *       ------------------------       *\n");
+    printf("\t\t\t\t     *                                      *\n");
+    printf("\t\t\t\t     *                                      *\n");
+    printf("\t\t\t\t     *          SAMRIDDHI COLLEGE           *\n");
+    printf("\t\t\t\t     *        Lokanthali, Bhaktapur         *\n");
+    printf("\t\t\t\t     *     Contact:0000000000,0000000000    *\n");
+    printf("\t\t\t\t     *                                      *\n");
+    printf("\t\t\t\t     ****************************************\n");
+    printf("\n\n\t\t\t\t           Press any key to continue: ");
+    getch();
+}
+
 
 struct book *initialize_lib(struct book *start){
     struct book *ptr,*new_book1,*new_book2,*new_book3,*new_book4,*new_book5,*new_book6,*new_book7,*new_book8,*new_book9,
@@ -157,6 +188,83 @@ struct book *delete_book(int id){
     }
     return start_lib;
 }
+
+struct student *book_return(struct student *start){
+    struct student *ptr,*preptr,*postptr;
+    char bookname[30],authorname[30];
+    int flag=0,id,identity,c=0,d=1;
+    printf("\n\n\t*************** Books Submission: ****************\n");
+    printf("\n\n\t Enter your Book ID: ");
+    scanf("%d",&identity);
+    ptr=start;
+    while(ptr!=NULL){
+        if(ptr->id==identity){
+            flag=1;
+            break;
+        }
+        ptr=ptr->next;
+    }
+    if(flag==1){
+        ptr=start;
+       /* while(ptr!=NULL){
+            c++;
+            ptr=ptr->next;
+        }*/
+        ptr=start;
+        while(ptr->id!=identity){
+                d++;
+            ptr=ptr->next;
+        }
+        ptr=start;
+        if( d==1 ){
+            printf("\n\t\t_________________________________________________\n");
+            printf("\n\t\t Student Name: %s",start->name);
+            printf("\n\t\t Student Email: %s",start->email);
+            printf("\n\t\t Name of Book Issued: %s",start->book);
+            printf("\n\t\t_________________________________________________\n");
+            printf("\n\n\t\t Return of Book ID %d done successfully!\n",identity);
+            printf("\n\n\t\t*************************************************\n");
+            strcpy(bookname,start->book);
+            strcpy(authorname,start->a);
+            id=start->id;
+            start=start->next;
+            start->prev=NULL;
+            free(ptr);
+            //k
+        }else{
+            ptr=start;
+            while(ptr->id!=identity){
+                preptr=ptr;
+                ptr=ptr->next;
+            }
+            postptr=ptr->next;
+            printf("\n\t\t_________________________________________________\n");
+            printf("\n\t\t Student Name: %s",ptr->name);
+            printf("\n\t\t Student Email: %s",ptr->email);
+            printf("\n\t\t Name of Book Issued: %s",ptr->book);
+            printf("\n\t\t Book ID: %d",ptr->id);
+            printf("\n\t\t_________________________________________________\n");
+            strcpy(bookname,ptr->book);
+            strcpy(authorname,ptr->a);
+            id=ptr->id;
+            preptr->next=ptr->next;
+            postptr->prev=preptr;
+            free(ptr);
+            //k
+        }
+        printf("\n\t\t Thank you!\t Do visit again! 🙂");
+        printf("\n\n\t Press any key to go to the main menu: ");
+        getch();
+        system("cls");
+    }else{
+        printf("\n\t\tSorry the book doesn't exist! Please recheck the entered ID");
+        printf("\n\t\t\t\t      Press any key to try again: ");
+        getch();
+        system("cls");
+    }
+    return start;
+}
+
 
 struct book *add_book(char bookname[30],char authorname[30],int id){
     struct book *ptr,*new_book;
