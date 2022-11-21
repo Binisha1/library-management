@@ -264,7 +264,7 @@ struct student *book_issue(struct student *start){
                 new_student->prev=ptr2;
                 new_student->next=NULL;
             }
-            
+            start_lib=delete_book(new_student->id);
             printf("\n\n\t\t Press any key to go to the main menu: ");
             getch();
             system("cls");
